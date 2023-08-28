@@ -9,11 +9,7 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true
     },
-    username: {
-      type: String,
-      required: [true, 'Username is required'],
-      minlength: [5, 'Username is too short']
-    },
+
     password: {
       type: String,
     },
