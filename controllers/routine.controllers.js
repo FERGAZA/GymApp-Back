@@ -6,8 +6,8 @@ const getAllRoutines = (req, res, next) => {
 
     Routine
         .find()
-        // TODO RPOYECTAR
-        // TODO ORDENAR
+        .sort({ title: 1 })
+        .select({ title: 1, training: 1, owner: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
 
@@ -25,18 +25,14 @@ const getOneRoutine = (req, res, next) => {
 
 const saveRoutine = (req, res, next) => {
 
-    const { title, description, exercises } = req.body;
+    const { title, description, exercises, training } = req.body;
 
     Routine
-        .create({ title, description, exercises })
+        .create({ title, description, exercises, training })
         .then(routine => {
             res.status(201).json({ message: 'Routine saved successfully', routine });
         })
-        .catch(error => {
-            // TODO: RESOLVER TODOS LOS CATCH CON next(error)
-            res.status(500).json({ error: 'Failed to save routine' });
-        });
-
+        .catch(err => next(err))
 }
 
 const deleteRoutine = (req, res, next) => {
@@ -51,9 +47,7 @@ const deleteRoutine = (req, res, next) => {
             }
             res.status(200).json({ message: 'Routine deleted successfully', deletedRoutine });
         })
-        .catch(error => {
-            res.status(500).json({ error: 'Failed to delete routine' });
-        })
+        .catch(err => next(err))
 }
 
 
