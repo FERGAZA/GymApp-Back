@@ -25,8 +25,8 @@ const routineSchema = new Schema(
                 },
                 reps: {
                     type: Number,
-                    min: 4,
-                    max: 15
+                    min: [4, 'Minimum 4 reps'],
+                    max: [15, 'Maximum 15 reps'],
 
                 }
             }

@@ -6,7 +6,9 @@ const getAllRoutines = (req, res, next) => {
 
     Routine
         .find()
-        .then(response => setTimeout(() => res.json(response), 1000))
+        // TODO RPOYECTAR
+        // TODO ORDENAR
+        .then(response => res.json(response))
         .catch(err => next(err))
 
 }
@@ -14,37 +16,24 @@ const getAllRoutines = (req, res, next) => {
 const getOneRoutine = (req, res, next) => {
 
     const { id: routine_id } = req.params
+
     Routine
         .findById(routine_id)
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
 
 const saveRoutine = (req, res, next) => {
 
     const { title, description, exercises } = req.body;
 
-    const isValidExercises = exercises.every(exercise => {
-        return exercise.name && exercise.reps >= 4 && exercise.reps <= 15;
-    });
-
-    if (!isValidExercises) {
-        return res.status(400).json({ error: 'Invalid exercise data' });
-    }
-
-    const newRoutine = new Routine({
-        title,
-        description,
-        exercises
-    });
-
-    newRoutine
-        .save()
-        .then(savedRoutine => {
-            res.status(201).json({ message: 'Routine saved successfully', routine: savedRoutine });
+    Routine
+        .create({ title, description, exercises })
+        .then(routine => {
+            res.status(201).json({ message: 'Routine saved successfully', routine });
         })
         .catch(error => {
+            // TODO: RESOLVER TODOS LOS CATCH CON next(error)
             res.status(500).json({ error: 'Failed to save routine' });
         });
 

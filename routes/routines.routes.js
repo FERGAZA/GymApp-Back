@@ -13,7 +13,7 @@ router.get("/getAllRoutines", getAllRoutines)
 
 router.get("/getOneRoutine/:id", getOneRoutine)
 
-router.post("/saveRoutine", saveRoutine,)
+router.post("/saveRoutine", saveRoutine)
 
 router.post("/deleteRoutine/:id", deleteRoutine)
 
