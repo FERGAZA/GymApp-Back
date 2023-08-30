@@ -9,7 +9,6 @@ const jwt = require('jsonwebtoken')
 const signUp = (req, res, next) => {
 
     const { email, password, firstname, lastname, icon } = req.body
-    console.log(email, password, firstname, lastname, icon)
 
     if (password.length < 1) {
 
@@ -60,15 +59,14 @@ const logIn = (req, res, next) => {
             }
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, firstName } = req.body
-                const payload = { _id, email, firstName }
+                const { _id, email, firstname, lastname, icon, role } = req.body
+                const payload = { _id, email, firstname, lastname, icon, role }
 
                 const authToken = jwt.sign(
                     payload,
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
-
                 res.status(200).json({ authToken })
             }
 
@@ -82,7 +80,9 @@ const logIn = (req, res, next) => {
 }
 
 const verify = (res, req, next) => {
+
     const loggedUser = req.payload
+        ('-----------------REQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ', req)
 
     res.json({ loggedUser })
 

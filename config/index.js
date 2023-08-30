@@ -4,13 +4,13 @@ const cookieParser = require("cookie-parser");
 
 const cors = require("cors");
 
-const FRONTEND_URL = process.env.ORIGIN || "http://localhost:3000";
+const FRONTEND_URL = process.env.ORIGIN || "http://localhost:5173";
 
 module.exports = (app) => {
   app.set("trust proxy", 1);
   app.use(
     cors({
-      origin: [FRONTEND_URL]
+      origin: ['http://localhost:5173']
     })
   );
   app.use(logger("dev"));
