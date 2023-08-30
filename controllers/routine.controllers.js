@@ -23,7 +23,7 @@ const getOneRoutine = (req, res, next) => {
         .catch(err => next(err))
 }
 
-const saveRoutine = (req, res, next) => {
+const createRoutine = (req, res, next) => {
 
     const { title, description, exercises, training } = req.body;
 
@@ -54,7 +54,7 @@ const deleteRoutine = (req, res, next) => {
 module.exports = {
     getAllRoutines,
     getOneRoutine,
-    saveRoutine,
+    createRoutine,
     deleteRoutine
 
 }

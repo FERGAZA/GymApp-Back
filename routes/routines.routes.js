@@ -5,15 +5,15 @@ const { verifyToken } = require("../Middleware/VerifyToken")
 const {
     getAllRoutines,
     getOneRoutine,
-    saveRoutine,
-    deleteRoutine
+    deleteRoutine,
+    createRoutine
 } = require('../controllers/routine.controllers')
 
 router.get("/getAllRoutines", getAllRoutines)
 
 router.get("/getOneRoutine/:id", getOneRoutine)
 
-router.post("/saveRoutine", saveRoutine)
+router.post("/createRoutine", createRoutine)
 
 router.post("/deleteRoutine/:id", deleteRoutine)
 
