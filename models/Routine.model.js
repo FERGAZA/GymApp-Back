@@ -28,6 +28,11 @@ const routineSchema = new Schema(
                     min: [4, 'Minimum 4 reps'],
                     max: [15, 'Maximum 15 reps'],
 
+                },
+
+                training: {
+                    type: String,
+                    enum: ['RAW', 'STRENGTH', 'FULL BODY', 'HIT', 'ENDURANCE', 'CARDIO']
                 }
             }
         },
