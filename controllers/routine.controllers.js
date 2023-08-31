@@ -25,13 +25,19 @@ const getOneRoutine = (req, res, next) => {
 
 const createRoutine = (req, res, next) => {
 
+    const { routineData: { title, description, training } } = req.body
+    const { inputList: [{ exerciseId: id, reps }] } = req.body
 
-    const { routineData: { title, description, type } } = req.body;
+    const routine = {
+        title,
+        description,
+        training,
+        exercises: [{ properties: { id, reps } }]
+    }
 
-    const { inputList: [{ muscle, exercise, reps }] } = req.body
 
     Routine
-        .create({ title, description, type, muscle, exercise, reps, training })
+        .create(routine)
         .then(routine => {
             res.status(201).json({ message: 'Routine saved successfully', routine });
         })

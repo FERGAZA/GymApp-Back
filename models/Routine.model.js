@@ -13,6 +13,11 @@ const routineSchema = new Schema(
             minlength: [10, 'Description is too short']
         },
 
+        training: {
+            type: String,
+            enum: ['RAW', 'STRENGTH', 'FULL BODY', 'HIT', 'ENDURANCE', 'CARDIO']
+        },
+
         exercises: {
             type: [Object],
             validate: {
@@ -20,19 +25,15 @@ const routineSchema = new Schema(
                 message: 'Add an exercise'
             },
             properties: {
-                name: {
+                id: {
                     type: String
                 },
+
                 reps: {
                     type: Number,
                     min: [4, 'Minimum 4 reps'],
                     max: [15, 'Maximum 15 reps'],
 
-                },
-
-                training: {
-                    type: String,
-                    enum: ['RAW', 'STRENGTH', 'FULL BODY', 'HIT', 'ENDURANCE', 'CARDIO']
                 }
             }
         },
