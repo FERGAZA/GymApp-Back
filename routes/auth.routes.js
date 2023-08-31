@@ -6,7 +6,6 @@ const {
     signUp,
     logIn,
     verify
-
 } = require('../controllers/auth.controllers')
 
 

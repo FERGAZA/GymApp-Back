@@ -54,7 +54,7 @@ const logIn = (req, res, next) => {
 
             if (!foundUser) {
 
-                res.status(400).json({ message: 'User not found' })
+                res.status(401).json({ message: 'User not found' })
                 return
             }
             if (bcrypt.compareSync(password, foundUser.password)) {
@@ -72,7 +72,7 @@ const logIn = (req, res, next) => {
             }
 
             else {
-                res.status(400).json({ message: 'Incorrect password' })
+                res.status(401).json({ message: 'Incorrect password' })
             }
         })
 
@@ -81,9 +81,7 @@ const logIn = (req, res, next) => {
 }
 
 const verify = (req, res, next) => {
-
     const loggedUser = req.payload
-
 
     res.json({ loggedUser })
 
