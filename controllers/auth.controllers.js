@@ -59,7 +59,7 @@ const logIn = (req, res, next) => {
             }
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, firstname, lastname, icon, role } = req.body
+                const { _id, email, firstname, lastname, icon, role } = foundUser
                 const payload = { _id, email, firstname, lastname, icon, role }
 
                 const authToken = jwt.sign(
@@ -67,6 +67,7 @@ const logIn = (req, res, next) => {
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
+                console.log(payload)
                 res.status(200).json({ authToken })
             }
 
@@ -79,10 +80,10 @@ const logIn = (req, res, next) => {
 
 }
 
-const verify = (res, req, next) => {
+const verify = (req, res, next) => {
 
     const loggedUser = req.payload
-        ('-----------------REQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ', req)
+
 
     res.json({ loggedUser })
 
