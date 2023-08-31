@@ -21,7 +21,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Lastname is required'],
     },
-    icon: {
+    avatar: {
       type: String,
       default: '#'
     },
