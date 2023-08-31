@@ -2,7 +2,7 @@ const router = require("express").Router()
 
 const uploaderMiddleware = require("../Middleware/uploader.middleware")
 
-router.post('/image', uploaderMiddleware.single('imageData'), (req, res) => {
+router.post('/image', uploaderMiddleware.single('avatar'), (req, res) => {
 
     if (!req.file) {
         res.status(500).json({ errorMessage: 'Error cargando el archivo' })
