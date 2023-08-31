@@ -67,6 +67,7 @@ const logIn = (req, res, next) => {
                     process.env.TOKEN_SECRET,
                     { algorithm: 'HS256', expiresIn: "6h" }
                 )
+                console.log(payload)
                 res.status(200).json({ authToken })
             }
 
