@@ -32,7 +32,7 @@ const createRoutine = (req, res, next) => {
         title,
         description,
         training,
-        exercises: [{ properties: { id, reps } }]
+        exercises: [{ properties: { id, reps } }],
     }
 
 
