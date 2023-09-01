@@ -1,4 +1,4 @@
-const router = require("express").Router()
+/* const router = require("express").Router()
 
 const uploaderMiddleware = require("../Middleware/uploader.middleware")
 
@@ -14,4 +14,4 @@ router.post('/image', uploaderMiddleware.single('avatar'), (req, res) => {
 
 
 
-module.exports = router
+module.exports = router */

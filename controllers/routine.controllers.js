@@ -25,16 +25,15 @@ const getOneRoutine = (req, res, next) => {
 
 const createRoutine = (req, res, next) => {
 
-    const { routineData: { title, description, training } } = req.body
-    const { inputList: [{ exerciseId: id, reps }] } = req.body
+    const { title, description, training } = req.body.routineData
+    const list = req.body.inputList
 
     const routine = {
         title,
         description,
         training,
-        exercises: [{ properties: { id, reps } }],
+        exercises: list,
     }
-
 
     Routine
         .create(routine)
