@@ -10,7 +10,6 @@ const getAllRoutines = (req, res, next) => {
         .select({ title: 1, training: 1, owner: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
 
 const getOneRoutine = (req, res, next) => {
@@ -26,20 +25,18 @@ const getOneRoutine = (req, res, next) => {
 const createRoutine = (req, res, next) => {
 
     const { title, description, training } = req.body.routineData
-    const list = req.body.inputList
+    const { inputList: exercises } = req.body
 
     const routine = {
         title,
         description,
         training,
-        exercises: list,
+        exercises,
     }
 
     Routine
         .create(routine)
-        .then(routine => {
-            res.status(201).json({ message: 'Routine saved successfully', routine });
-        })
+        .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }
 

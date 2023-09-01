@@ -1,15 +1,12 @@
-require("dotenv").config();
+require("dotenv").config()
+require("./db")
 
-require("./db");
+const express = require("express")
+const app = express()
 
-const express = require("express");
-
-const app = express();
-
-require("./config")(app);
+require("./config")(app)
 
 app.use("/api", require("./routes"))
-
 require("./error-handling")(app)
 
-module.exports = app;
+module.exports = app
