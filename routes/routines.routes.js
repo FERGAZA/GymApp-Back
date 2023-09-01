@@ -7,13 +7,13 @@ const {
     getOneRoutine,
     deleteRoutine,
     createRoutine
-} = require('../controllers/routine.controllers')
+} = require('../controllers/routine.controller')
 
 router.get("/getAllRoutines", getAllRoutines)
 
 router.get("/getOneRoutine/:id", getOneRoutine)
 
-router.post("/createRoutine", createRoutine)
+router.post("/createRoutine", verifyToken, createRoutine)
 
 router.post("/deleteRoutine/:id", deleteRoutine)
 
