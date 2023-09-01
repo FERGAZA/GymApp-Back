@@ -34,6 +34,8 @@ const createRoutine = (req, res, next) => {
         exercises,
     }
 
+    console.log(routine)
+
     Routine
         .create(routine)
         .then(() => res.sendStatus(201))
