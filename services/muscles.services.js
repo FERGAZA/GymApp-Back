@@ -2,9 +2,10 @@ const axios = require('axios');
 
 class MuscleService {
     constructor() {
+        this.api = axios.create({
+            baseURL: `https://exercisedb.p.rapidapi.com/exercises/target`
+        })
         this.options = {
-            method: 'GET',
-            url: 'https://exercisedb.p.rapidapi.com/exercises',
             headers: {
                 'X-RapidAPI-Key': `${process.env.API_KEY}`,
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
@@ -12,21 +13,12 @@ class MuscleService {
         };
     }
 
-    searchExercises(searchTerm) {
-        if (searchTerm) {
-            return axios.request(this.options)
-                .then(response => {
-                    return response.data;
-                })
-                .catch(error => {
-                    throw error;
-                });
-        } else {
-            return Promise.resolve([]);
-        }
+    searchExercise(exercise) {
+        return this.api.get(`/${exercise}`, this.options)
     }
+
 }
 
-const exerciseService = new MuscleService();
+const muscleService = new MuscleService();
 
-module.exports = exerciseService;
+module.exports = muscleService;

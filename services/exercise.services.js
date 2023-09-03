@@ -2,26 +2,21 @@ const axios = require('axios');
 
 class ExerciseService {
     constructor() {
-
-        this.axiosApp = axios.create({
-            baseUrl: 'https://exercisedb.p.rapidapi.com/'
-
+        this.api = axios.create({
+            baseURL: `https://exercisedb.p.rapidapi.com/exercises/name`
         })
         this.options = {
             headers: {
-                'X-RapidAPI-Key': process.env.API_KEY,
+                'X-RapidAPI-Key': `${process.env.API_KEY}`,
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         };
     }
 
-    searchExercises() {
-        return this.axiosApp.get(`/exercises`, this.options)
+    searchExercise(exercise) {
+        return this.api.get(`/${exercise}`, this.options)
     }
 
-    searchExercisesByMuscle() {
-
-    }
 }
 
 const exerciseService = new ExerciseService();
