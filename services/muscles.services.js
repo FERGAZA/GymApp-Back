@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-class ExerciseService {
+class MuscleService {
     constructor() {
         this.options = {
             method: 'GET',
@@ -27,6 +27,6 @@ class ExerciseService {
     }
 }
 
-const exerciseService = new ExerciseService();
+const exerciseService = new MuscleService();
 
 module.exports = exerciseService;
