@@ -2,28 +2,25 @@ const axios = require('axios');
 
 class ExerciseService {
     constructor() {
+
+        this.axiosApp = axios.create({
+            baseUrl: 'https://exercisedb.p.rapidapi.com/'
+
+        })
         this.options = {
-            method: 'GET',
-            url: 'https://exercisedb.p.rapidapi.com/exercises',
             headers: {
-                'X-RapidAPI-Key': 'd4933db27fmshe2a635668f4aae5p150b73jsnaf2f8586368d',
+                'X-RapidAPI-Key': process.env.API_KEY,
                 'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
             }
         };
     }
 
-    searchExercises(searchTerm) {
-        if (searchTerm) {
-            return axios.request(this.options)
-                .then(response => {
-                    return response.data;
-                })
-                .catch(error => {
-                    throw error;
-                });
-        } else {
-            return Promise.resolve([]);
-        }
+    searchExercises() {
+        return this.axiosApp.get(`/exercises`, this.options)
+    }
+
+    searchExercisesByMuscle() {
+
     }
 }
 

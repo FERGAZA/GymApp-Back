@@ -5,12 +5,11 @@ const exerciseService = require("../services/exercise.services");
 router.get("/:searchTerm", async (req, res, next) => {
     const { searchTerm } = req.params;
 
-    try {
-        const exerciseData = await exerciseService.searchExercises(searchTerm);
-        res.json({ exerciseData });
-    } catch (error) {
-        next(error);
-    }
-});
+    exerciseService
+        .searchExercises()
+        .then(({ data }) => res.json(data))
+        .catch(err => next(err))
 
-module.exports = router;
+})
+
+module.exports = router
