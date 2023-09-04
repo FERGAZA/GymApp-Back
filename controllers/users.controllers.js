@@ -1,7 +1,5 @@
 const User = require("../models/User.model")
 
-
-
 const getAllUsers = (req, res, next) => {
 
     User
@@ -19,12 +17,23 @@ const getOneUser = (req, res, next) => {
 
 const editUser = (req, res, next) => {
 
-    res.json("He llegado a esta puta ruta edit")
+    const { id } = req.params
+    const { userData } = req.body
+
+    User
+        .findByIdAndUpdate(id, userData)
+        .then(response => res.json(response))
+        .catch(err => next(err))
 
 }
 const deleteUser = (req, res, next) => {
 
-    res.json("He llegado a esta puta ruta delete")
+    const { id } = req.params
+    console.log(id)
+    User
+        .findByIdAndDelete(id)
+        .then(response => res.json(response))
+        .catch(err => next(err))
 
 }
 
