@@ -13,8 +13,8 @@ class MuscleService {
         };
     }
 
-    searchExercise(exercise) {
-        return this.api.get(`/${exercise}`, this.options)
+    searchExerciseByMuscle(muscle) {
+        return this.api.get(`/${muscle}`, this.options)
     }
 
 }
