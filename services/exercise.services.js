@@ -3,7 +3,7 @@ const axios = require('axios');
 class ExerciseService {
     constructor() {
         this.api = axios.create({
-            baseURL: `https://exercisedb.p.rapidapi.com/exercises/name`
+            baseURL: `https://exercisedb.p.rapidapi.com/exercises/`
         })
         this.options = {
             headers: {
@@ -14,11 +14,15 @@ class ExerciseService {
     }
 
     searchExercise(exercise) {
-        return this.api.get(`/${exercise}`, this.options)
+        return this.api.get(`/name/${exercise}`, this.options)
+    }
+
+    searchExerciseById(exercise_id) {
+        return this.api.get(`/exercise/${exercise_id}`, this.options)
     }
 
 }
 
-const exerciseService = new ExerciseService();
+const exerciseService = new ExerciseService()
 
-module.exports = exerciseService;
+module.exports = exerciseService

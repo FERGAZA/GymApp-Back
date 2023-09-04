@@ -10,6 +10,16 @@ router.get("/:searchTerm", (req, res, next) => {
         .then(({ data }) => res.json(data))
         .catch(err => next(err))
 
-});
+})
+
+router.get('/exercise/:id', (req, res, next) => {
+    const { id } = req.params
+
+    exerciseService
+        .searchExerciseById(id)
+        .then(({ data }) => res.json(data))
+        .catch(err => next(err))
+})
+
 
 module.exports = router
