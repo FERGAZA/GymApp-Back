@@ -4,6 +4,7 @@ const getAllUsers = (req, res, next) => {
 
     User
         .find()
+        // TODO: SELECT Y SORT
         .then(response => res.json(response))
         .catch(err => next(err))
 }
@@ -11,11 +12,17 @@ const getAllUsers = (req, res, next) => {
 
 const getOneUser = (req, res, next) => {
 
-    res.json("He llegado a esta puta ruta One")
+    const { id } = req.params
 
+    User
+        .findById(id)
+        .then(response => res.json(response))
+        .catch(err => next(err))
 }
 
 const editUser = (req, res, next) => {
+
+    // TODO: MODIFICAR CONTROLADORES RESOLUBLES COMN ESTAOD HTTP
 
     const { id } = req.params
     const { userData } = req.body
@@ -24,19 +31,17 @@ const editUser = (req, res, next) => {
         .findByIdAndUpdate(id, userData)
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
+
 const deleteUser = (req, res, next) => {
 
     const { id } = req.params
-    console.log(id)
+
     User
         .findByIdAndDelete(id)
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
-
 
 module.exports = {
     getAllUsers,

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 
 const signUp = (req, res, next) => {
 
-    const { email, password, firstname, lastname, avatar } = req.body
+    const { email, password, firstname, lastname, avatar, chest, squad, routine, weigth } = req.body
 
     if (password.length < 1) {
 
@@ -30,7 +30,7 @@ const signUp = (req, res, next) => {
             const salt = bcrypt.genSaltSync(saltRounds)
             const hashedPassword = bcrypt.hashSync(password, salt)
 
-            return User.create({ email, password: hashedPassword, firstname, lastname, avatar })
+            return User.create({ email, password: hashedPassword, firstname, lastname, avatar, chest, squad, routine, weigth })
         })
 
         .then(() => res.sendStatus(201))
@@ -59,8 +59,8 @@ const logIn = (req, res, next) => {
             }
             if (bcrypt.compareSync(password, foundUser.password)) {
 
-                const { _id, email, firstname, lastname, avatar, role } = foundUser
-                const payload = { _id, email, firstname, lastname, avatar, role }
+                const { _id, email, firstname, lastname, avatar, role, chest, squad, routine, weigth } = foundUser
+                const payload = { _id, email, firstname, lastname, avatar, role, chest, squad, routine, weigth }
 
                 const authToken = jwt.sign(
                     payload,
