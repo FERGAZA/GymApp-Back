@@ -24,6 +24,16 @@ const getOneRoutine = (req, res, next) => {
 
 const createRoutine = (req, res, next) => {
 
+
+    const theRoutine = {
+        title: '',
+        description: '',
+        training: '',
+        exercises: [properties = { id: '', reps: 0 }],
+
+        owner: ''
+    }
+
     const { title, description, training } = req.body.routineData
     const { inputList: exercises } = req.body
 
@@ -52,7 +62,7 @@ const deleteRoutine = (req, res, next) => {
             if (!deletedRoutine) {
                 return res.status(404).json({ error: 'Routine not found' });
             }
-            res.status(200).json({ message: 'Routine deleted successfully', deletedRoutine });
+            res.sendStatus(204)
         })
         .catch(err => next(err))
 }
