@@ -11,8 +11,12 @@ const getAllUsers = (req, res, next) => {
 
 const getOneUser = (req, res, next) => {
 
-    res.json("He llegado a esta puta ruta One")
+    const { id } = req.params
 
+    User
+        .findById(id)
+        .then(response => res.json(response))
+        .catch(err => next(err))
 }
 
 const editUser = (req, res, next) => {
