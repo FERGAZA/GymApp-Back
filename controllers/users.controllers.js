@@ -33,6 +33,20 @@ const editUser = (req, res, next) => {
         .catch(err => next(err))
 }
 
+
+const addGymbro = (req, res, next) => {
+
+    const { userId } = req.body
+    const { _id } = req.payload
+
+
+    User
+        .findByIdAndUpdate(_id, { $addToSet: { gymbro: userId } })
+        .then(() => res.sendStatus(200))
+        .catch(err => next(err))
+}
+
+
 const deleteUser = (req, res, next) => {
 
     const { id } = req.params
@@ -47,5 +61,6 @@ module.exports = {
     getAllUsers,
     getOneUser,
     editUser,
+    addGymbro,
     deleteUser
 }

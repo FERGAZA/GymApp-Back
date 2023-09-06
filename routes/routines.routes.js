@@ -8,7 +8,7 @@ const {
     getRoutinesByOwner,
     deleteRoutine,
     createRoutine
-} = require('../controllers/routine.controller')
+} = require('../controllers/routine.controllers')
 
 router.get("/getAllRoutines", verifyToken, getAllRoutines)
 
