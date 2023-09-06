@@ -12,6 +12,18 @@ const getAllRoutines = (req, res, next) => {
         .catch(err => next(err))
 }
 
+
+const getRoutinesByOwner = (req, res, next) => {
+
+    const { id: user_id } = req.params
+
+    Routine
+        .find({ owner: user_id })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+}
+
+
 const getOneRoutine = (req, res, next) => {
 
     const { id: routine_id } = req.params
@@ -64,8 +76,10 @@ const deleteRoutine = (req, res, next) => {
 
 module.exports = {
     getAllRoutines,
+    getRoutinesByOwner,
     getOneRoutine,
     createRoutine,
     deleteRoutine
+
 
 }

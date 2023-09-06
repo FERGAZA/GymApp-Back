@@ -4,7 +4,8 @@ const getAllUsers = (req, res, next) => {
 
     User
         .find()
-        // TODO: SELECT Y SORT
+        .sort({ firstname: 1 })
+        .select({ firstname: 1, lastname: 1, chest: 1, squad: 1, routine: 1, weigth: 1, products: 1, avatar: 1, role: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
 }
@@ -16,13 +17,12 @@ const getOneUser = (req, res, next) => {
 
     User
         .findById(id)
+        .populate("gymbro", "Products")
         .then(response => res.json(response))
         .catch(err => next(err))
 }
 
 const editUser = (req, res, next) => {
-
-    // TODO: MODIFICAR CONTROLADORES RESOLUBLES COMN ESTAOD HTTP
 
     const { id } = req.params
     const { userData } = req.body
@@ -39,7 +39,7 @@ const deleteUser = (req, res, next) => {
 
     User
         .findByIdAndDelete(id)
-        .then(response => res.json(response))
+        .then(() => res.sendStatus(201))
         .catch(err => next(err))
 }
 
