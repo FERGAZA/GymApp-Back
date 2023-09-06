@@ -17,7 +17,7 @@ const getOneUser = (req, res, next) => {
 
     User
         .findById(id)
-        .populate("gymbro", "Products")
+        .populate("gymbro")
         .then(response => res.json(response))
         .catch(err => next(err))
 }

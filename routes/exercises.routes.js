@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const exerciseService = require("../services/exercise.services")
+const exerciseService = require("../")
+
 
 
 router.get("/:searchTerm", (req, res, next) => {

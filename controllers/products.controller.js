@@ -23,14 +23,15 @@ const getOneProduct = (req, res, next) => {
 }
 
 const sendProduct = (req, res, next) => {
+    console.log(req.payload)
+    // const { user_id } = req.payload
+    // const { id: product_id } = req.params
+    // console.log("------------------------", user_id, product_id)
 
-    const { user_id } = req.payload
-    const { id: product_id } = req.params
-
-    User
-        .findByIdAndUpdate(user_id, { $push: { products: product_id } })
-        .then(response => console.log(response))
-        .catch(err => next(err))
+    // User
+    //     .findByIdAndUpdate(user_id, { $push: { products: product_id } })
+    //     .then(response => console.log(response))
+    //     .catch(err => next(err))
 }
 
 

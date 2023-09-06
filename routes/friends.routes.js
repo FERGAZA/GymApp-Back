@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
 
-router.post('/:userId/addGymbro/:friendId', (req, res) => {
+router.put('/addGymbro/:userId', (req, res) => {
 
-    const { userId, friendId } = req.params;
+    const { userId } = req.params;
+    const { friendId } = req.body
 
     User
-        .findByIdAndUpdate(userId, { $addToSet: { gymbro: friendId } }, { new: true })
-        .then((response) => res.json(response))
+        .findByIdAndUpdate(userId, { $addToSet: { gymbro: friendId } })
+        .then((response) => res.sendStatus(201))
         .catch((err) => console.log(err))
 }
 )

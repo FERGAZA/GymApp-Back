@@ -1,6 +1,6 @@
 
 const router = require("express").Router()
-const { verifyToken } = require("../Middleware/VerifyToken")
+const { verifyToken } = require("../middleware/VerifyToken")
 
 const {
     signUp,
@@ -15,6 +15,8 @@ router.post("/signUp", signUp)
 router.post("/login", logIn)
 
 router.get("/verify", verifyToken, verify)
+
+
 
 
 module.exports = router

@@ -40,6 +40,7 @@ const signUp = (req, res, next) => {
 
 
 const logIn = (req, res, next) => {
+    console.log("loginnnnn")
     const { email, password } = req.body
 
     if (email === '' || password === '') {
