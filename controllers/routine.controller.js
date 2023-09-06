@@ -35,10 +35,22 @@ const getOneRoutine = (req, res, next) => {
 }
 
 const createRoutine = (req, res, next) => {
+    const { title, description, training, owner, exercises } = req.body
+
+    let newExercises = []
+
+    for (const [_, value] of Object.entries(exercises)) {
+        newExercises.push({ properties: value })
+    }
 
     const routine = {
-        title, description, training, exercises =  req.body.inputList
-    } = req.body.routineData
+        title,
+        description,
+        training,
+        owner,
+        exercises: newExercises
+
+    }
 
     Routine
         .create(routine)
