@@ -34,6 +34,21 @@ const userSchema = new Schema(
       type: Number,
     },
 
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Products'
+      }
+    ],
+
+    gymbro: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+
+    ],
+
     password: {
       type: String,
     },

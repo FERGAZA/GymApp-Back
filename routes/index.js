@@ -13,5 +13,8 @@ router.use("/exercises", require('./exercises.routes'))
 
 router.use("/muscle", require('./muscles.routes'))
 
+router.use("/products", require('./products.routes.js'))
+
+router.use("/friends", require('./friends.routes'))
 
 module.exports = router
