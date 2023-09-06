@@ -6,48 +6,56 @@ const getAllRoutines = (req, res, next) => {
 
     Routine
         .find()
-        .then(response => setTimeout(() => res.json(response), 1000))
+        .sort({ title: 1 })
+        .select({ title: 1, training: 1, owner: 1 })
+        .then(response => res.json(response))
         .catch(err => next(err))
-
 }
+
+
+const getRoutinesByOwner = (req, res, next) => {
+
+    const { id: user_id } = req.params
+
+    Routine
+        .find({ owner: user_id })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+}
+
 
 const getOneRoutine = (req, res, next) => {
 
     const { id: routine_id } = req.params
+
     Routine
         .findById(routine_id)
         .then(response => res.json(response))
         .catch(err => next(err))
-
 }
 
-const saveRoutine = (req, res, next) => {
+const createRoutine = (req, res, next) => {
+    const { title, description, training, owner, exercises } = req.body
 
-    const { title, description, exercises } = req.body;
+    let newExercises = []
 
-    const isValidExercises = exercises.every(exercise => {
-        return exercise.name && exercise.reps >= 4 && exercise.reps <= 15;
-    });
-
-    if (!isValidExercises) {
-        return res.status(400).json({ error: 'Invalid exercise data' });
+    for (const [_, value] of Object.entries(exercises)) {
+        newExercises.push({ properties: value })
     }
 
-    const newRoutine = new Routine({
+    const routine = {
         title,
         description,
-        exercises
-    });
+        training,
+        owner,
+        exercises: newExercises
 
-    newRoutine
-        .save()
-        .then(savedRoutine => {
-            res.status(201).json({ message: 'Routine saved successfully', routine: savedRoutine });
-        })
-        .catch(error => {
-            res.status(500).json({ error: 'Failed to save routine' });
-        });
+    }
 
+    Routine
+        .create(routine)
+        .then(() => res.sendStatus(201))
+        .catch(err => next(err))
 }
 
 const deleteRoutine = (req, res, next) => {
@@ -60,18 +68,18 @@ const deleteRoutine = (req, res, next) => {
             if (!deletedRoutine) {
                 return res.status(404).json({ error: 'Routine not found' });
             }
-            res.status(200).json({ message: 'Routine deleted successfully', deletedRoutine });
+            res.sendStatus(204)
         })
-        .catch(error => {
-            res.status(500).json({ error: 'Failed to delete routine' });
-        })
+        .catch(err => next(err))
 }
 
 
 module.exports = {
     getAllRoutines,
+    getRoutinesByOwner,
     getOneRoutine,
-    saveRoutine,
+    createRoutine,
     deleteRoutine
+
 
 }
