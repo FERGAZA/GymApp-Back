@@ -4,14 +4,6 @@ const exerciseService = require("../services/exercise.services")
 
 
 
-router.get("/:searchTerm", (req, res, next) => {
-    const { searchTerm } = req.params;
-    exerciseService
-        .searchExercise(searchTerm)
-        .then(({ data }) => res.json(data))
-        .catch(err => next(err))
-
-})
 
 router.get('/exercise/:id', (req, res, next) => {
     const { id } = req.params
@@ -21,6 +13,17 @@ router.get('/exercise/:id', (req, res, next) => {
         .then(({ data }) => res.json(data))
         .catch(err => next(err))
 })
+
+
+router.get("/:searchTerm", (req, res, next) => {
+    const { searchTerm } = req.params;
+    exerciseService
+        .searchExercise(searchTerm)
+        .then(({ data }) => res.json(data))
+        .catch(err => next(err))
+
+})
+
 
 
 module.exports = router

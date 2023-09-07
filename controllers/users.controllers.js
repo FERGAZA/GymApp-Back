@@ -22,6 +22,20 @@ const getOneUser = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const getUserInfo = (req, res, next) => {
+
+    const { filter, user_id } = req.params
+    User
+        .findById(user_id)
+        .populate(filter)
+        .select({ filter: 1 })
+        .then((response) => res.json(response))
+        .catch(err => next(err))
+
+}
+
+
+
 const editUser = (req, res, next) => {
 
     const { id } = req.params
@@ -57,10 +71,22 @@ const deleteUser = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const deleteGymbro = (req, res, next) => {
+
+    const { userId } = req.body
+    const { _id } = req.payload
+    User
+        .findByIdAndUpdate(_id, { $pull: { gymbro: userId } })
+        .then(() => res.sendStatus(200))
+        .catch(err => next(err))
+}
+
 module.exports = {
     getAllUsers,
     getOneUser,
     editUser,
     addGymbro,
-    deleteUser
+    deleteUser,
+    getUserInfo,
+    deleteGymbro
 }
