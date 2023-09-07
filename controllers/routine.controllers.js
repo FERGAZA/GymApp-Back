@@ -1,15 +1,30 @@
 
 const Routine = require("../models/Routine.model")
+const exerciseService = require("../services/exercise.services")
 
 
 const getAllRoutines = (req, res, next) => {
 
     Routine
         .find()
+        .populate('owner')
         .sort({ title: 1 })
-        .select({ title: 1, training: 1, owner: 1 })
+        .select({ title: 1, training: 1, owner: 1, _id: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
+}
+
+const getRoutinesByType = (req, res, next) => {
+    const { routineType } = req.params
+
+    Routine
+        .find({ training: routineType })
+        .populate('owner')
+        .sort({ title: 1 })
+        .select({ title: 1, training: 1, owner: 1, _id: 1 })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+
 }
 
 
@@ -30,10 +45,29 @@ const getOneRoutine = (req, res, next) => {
 
     Routine
         .findById(routine_id)
+        .populate('owner')
+        .select({ title: 1, description: 1, owner: 1, exercises: 1 })
         .then(response => res.json(response))
         .catch(err => next(err))
 }
 
+const getRoutineExercises = (req, res, next) => {
+    const { id: routine_id } = req.params
+
+    Routine
+        .findById(routine_id)
+        .select({ exercises: 1, _id: 0 })
+        .then(response => {
+            let exercisesProm = response.exercises.map(({ properties }) => {
+                return exerciseService.searchExerciseById(properties.id).then(({ data }) => data)
+            })
+            return Promise.all(exercisesProm)
+        })
+        .then(response => res.json(response))
+        .catch(err => next(err))
+
+
+}
 const createRoutine = (req, res, next) => {
     const { title, description, training, owner, exercises } = req.body
 
@@ -76,8 +110,10 @@ const deleteRoutine = (req, res, next) => {
 
 module.exports = {
     getAllRoutines,
+    getRoutinesByType,
     getRoutinesByOwner,
     getOneRoutine,
+    getRoutineExercises,
     createRoutine,
     deleteRoutine
 
