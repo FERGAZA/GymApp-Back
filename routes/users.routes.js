@@ -5,9 +5,11 @@ const {
     getOneUser,
     editUser,
     addGymbro,
+    deleteGymbro,
     getUserInfo,
     deleteUser
 } = require('../controllers/users.controllers.js')
+
 const { verifyToken } = require("../middleware/VerifyToken.js")
 
 router.get("/getAllUsers", getAllUsers)
@@ -20,6 +22,7 @@ router.post("/editUser/:id", editUser)
 
 router.put("/addGymbro", verifyToken, addGymbro)
 
+router.put("/deleteGymbro", verifyToken, deleteGymbro)
 
 
 router.post("/deleteUser/:id", deleteUser)
